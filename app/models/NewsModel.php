@@ -22,7 +22,7 @@ class NewsModel
 
     public function getLink(){
 
-        $query = "SELECT id,link FROM news_links WHERE is_used = '0'";
+        $query = "SELECT id,link,title FROM news_links WHERE is_used = '0' LIMIT 1";
         $result = DB::query($query);
         return $result->fetch(\PDO::FETCH_OBJ);
     }

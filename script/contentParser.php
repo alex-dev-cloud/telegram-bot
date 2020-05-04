@@ -2,22 +2,34 @@
 
 use app\models\NewsModel;
 use core\Logger;
+use app\models\TelegramModel;
 use PHPHtmlParser\Dom;
 
 require_once dirname(__DIR__) . '/configs/init.php';
-
-Logger::putLog('content_parser', 'start...');
+Logger::putLog('content_parser', 'start');
 
 $model = new NewsModel();
 $parser= new Dom();
+$data = $model->getLink();
 
-$link = $model->getLink()->link;
-$id = $model->getLink()->id;
+if ($link = $data->link){
 
-$page = $parser->load($link);
-$article = $page->find('.article-text')->innerHTML;
-$article = strip_tags($article);
+    $id = $data->id;
+    $title = $data->title;
 
-$model->saveContent($id, $article);
+    $page = $parser->load($link);
+    $article = $page->find('.article-text')->innerHTML;
+    $article = strip_tags($article);
+    $model->saveContent($id, $article);
 
-Logger::putLog('content_parser', '...finish');
+    Logger::putLog('content_parser', 'saved to database');
+
+    $telegram  = new TelegramModel();
+
+    $telegram->sendMessage($title, $article);
+
+    Logger::putLog('content_parser', 'sent to telegram');
+    Logger::putLog('content_parser', "success", true);
+} else {
+    Logger::putLog('content_parser', "error", true);
+}

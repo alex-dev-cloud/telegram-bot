@@ -1,0 +1,6 @@
+<?php
+
+
+$API_TOKEN = getenv('API_TOKEN') ?: '1251732115:AAEdfpZODemjknf1Ve1VewIDNJ2OPGFDLCc';
+
+define('API_TOKEN', $API_TOKEN);
