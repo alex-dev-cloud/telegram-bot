@@ -14,5 +14,5 @@ try {
 }
 
 foreach (TABLES as $TABLE) {
-    if (!empty($TABLE)) $DB->exec($TABLE);
+    $DB->exec($TABLE);
 }

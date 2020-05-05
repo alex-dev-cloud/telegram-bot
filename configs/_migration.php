@@ -3,7 +3,7 @@
 define('TABLES', array(
 
     'news_content' =>
-        'CREATE TABLE `news_content` (
+        'CREATE TABLE IF NOT EXISTS `news_content` (
         `id` int(11) NOT NULL AUTO_INCREMENT,
         `article` longtext,
         `news_link_id` int(11) DEFAULT NULL,
@@ -13,7 +13,7 @@ define('TABLES', array(
        ) ENGINE=InnoDB DEFAULT CHARSET=utf8',
 
     'news_links' =>
-        'CREATE TABLE `news_links` (
+        'CREATE TABLE IF NOT EXISTS `news_links` (
         `id` int(11) NOT NULL AUTO_INCREMENT,
         `title` varchar(255) NOT NULL,
         `date` varchar(45) DEFAULT NULL,

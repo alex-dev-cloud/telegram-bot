@@ -17,6 +17,14 @@ if ($link = $data->link){
     $id = $data->id;
     $title = $data->title;
 
+    $pattern = [
+        '/(-\sФОТО)/',
+        '/(-\sВИДЕО)/'
+    ];
+    $replacement = '';
+    $title = preg_replace($pattern, $replacement, $title );
+
+
     $page = $parser->load($link);
     $article = $page->find('.article-text')->innerHTML;
     $article = strip_tags($article);
